@@ -4,13 +4,12 @@
 int get_memory(int pid) {
   int vsize;
   char dummy[256];
-  char pid_string[16];
-  sprintf(pid_string, "%d", pid);
+  char path_string[16];
+  sprintf(path_string, "/proc/%d/stat", pid);
   FILE *input;
   input = NULL;
 
-  chdir("/proc");
-  if(chdir(pid_string) == 0) { input = fopen("stat", "r"); }
+  input = fopen(path_string, "r");
   if(!input) {
     perror("open");
     return 0;
